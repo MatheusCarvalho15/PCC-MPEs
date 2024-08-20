@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row m-0">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header ml-0">
+            <i class="fas fa-table me-1"></i>
+            Metas
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <td>Data</td>
+                    <td>Meta de Despesa</td>
+                    <td>Meta de Venda</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if meta %}
+                    {% for metas in meta %}
+                      <tr>
+                        <td>{{ metas.data }}</td>
+                        <td>{{ metas.despesa }}</td>
+                        <td>{{ metas.venda }}</td>
+                        <td class="text-center">
+                          <!-- Centraliza os botões de ação -->
+                          <a href="{% url 'atualizarMeta' metas.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>
+                          <a href="{% url 'confirmarMeta' metas.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card-footer bg-white">
+            <div class="d-flex justify-content-between p-2">
+              <a href="{% url 'home' %}" class="btn btn-link btn-custom-size">Voltar</a>
+              <a href="{% url 'criarMeta' %}" class="btn btn-success btn-custom-size">Criar Meta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% load static %}
+
+  <div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+      <!-- Coluna de Perfil -->
+      <div class="col-md-3 border-end">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+          <img class="rounded-circle mt-5" width="150px" src="{% static 'img/undraw_profile.svg' %}" />
+          <h5 class="font-weight-bold">{{ usuario.username }}</h5>
+          <span class="text-muted">{{ usuario.email }}</span>
+        </div>
+      </div>
+
+      <!-- Coluna de Configurações -->
+      <div class="col-md-5 border-end">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>Profile Settings</h4>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6 mb-3">
+              <label for="first-name" class="form-label">Name</label>
+              <input id="first-name" type="text" class="form-control" placeholder="First name" value="{{ usuario.first_name }}" disabled />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="surname" class="form-label">Surname</label>
+              <input id="surname" type="text" class="form-control" placeholder="Surname" value="{{ usuario.last_name }}" disabled />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 mb-3">
+              <label for="data-nascimento" class="form-label">Data de Nascimento</label>
+              <input id="data-nascimento" type="text" class="form-control" placeholder="Enter data de nascimento" value="{{ usuario.data_nascimento }}" disabled />
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="cpf" class="form-label">CPF</label>
+              <input id="cpf" type="text" class="form-control" placeholder="Enter CPF" value="{{ usuario.cpf }}" disabled />
+            </div>
+          </div>
+          <div class="mt-5 text-center">
+            <a href="{% url 'editarDados' usuario.id %}" class="btn btn-primary">Editar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna de Cargo -->
+      <div class="col-md-4">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Cargo do Usuário</span>
+          </div>
+          <div class="mb-3">
+            <label for="cargo" class="form-label">Cargo Atual</label>
+            <input id="cargo" type="text" class="form-control" placeholder="Cargo Atual" value="{{ usuario.cargo }}" disabled />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

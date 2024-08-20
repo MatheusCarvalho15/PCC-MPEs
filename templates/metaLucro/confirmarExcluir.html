@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-header bg-danger text-white text-center">
+            <h4 class="alert-heading">Tem certeza que deseja excluir?</h4>
+          </div>
+          <div class="card-body">
+            <p>
+              <strong>Meta de despesa:</strong> {{ meta.despesa }}
+            </p>
+            <p>
+              <strong>Meta de Venda:</strong> {{ meta.venda }}
+            </p>
+            <p>
+              <strong>Data:</strong> {{ meta.data }}
+            </p>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <a href="/meta/deletar/{{ meta.id }}" class="btn btn-danger">Sim</a>
+              <a href="/meta/" class="btn btn-secondary">Não</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

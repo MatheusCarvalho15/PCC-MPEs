@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="card border-dark">
+          <div class="card-header bg-dark text-white">
+            <i class="fas fa-users me-2"></i>
+            Usuários
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Usuário</th>
+                    <th>Cargo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if usuario %}
+                    {% for usuarios in usuario %}
+                      <tr>
+                        <td>{{ usuarios.username }}</td>
+                        <td>{{ usuarios.cargo }}</td>
+                        <td>
+                          <a href="{% url 'editarUsuario' usuarios.id %}" class="btn btn-primary btn-sm">Editar Cargo</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
+                    <tr>
+                      <td colspan="3" class="text-center">Nenhum usuário encontrado</td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer bg-light text-center">
+            <a href="{% url 'home' %}" class="btn btn-link">Voltar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-4">
+    <div class="card mx-auto" style="max-width: 600px;">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Editar Usuário</h5>
+      </div>
+      <div class="card-body">
+        <form action="{% url 'editarUsuario' id_user %}" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="mt-3 text-end">
+            <input type="submit" value="Enviar" class="btn btn-primary me-2" />
+            <a href="{% url 'listarUsuarios' %}" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

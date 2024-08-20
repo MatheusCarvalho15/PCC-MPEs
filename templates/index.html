@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .chart-container {
+      position: relative;
+      height: 400px; 
+    }
+  </style>
+
+  <div class="container-fluid px-0">
+    <div class="row">
+      <!-- Despesas totais -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Despesas totais</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ total_despesa|floatformat:2 }}</div>
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Até data</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataDespesa|date:'d/m/Y' }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total de Vendas -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total de Vendas</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ total_venda|floatformat:2 }}</div>
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Até Data</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataVenda|date:'d/m/Y' }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saldo -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Saldo</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ total|floatformat:2 }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meta de despesa -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <a href="{% url 'listarMeta' %}" class="text-decoration-none">
+          <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Meta de despesa</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ meta.despesa }}</div>
+                  <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Meta de venda</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ meta.venda }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row">
+      <!-- Gráfico de Despesas -->
+      <div class="col-xl-6">
+        <div class="chart-container">
+          <canvas id="chart-despesa"></canvas>
+        </div>
+      </div>
+
+      <!-- Gráfico de Barras de Vendas -->
+<div class="col-xl-6">
+  <div class="chart-container">
+    <div id="barchart" style="width: 100%; height: 500px;"></div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Gráfico de Despesas
+    var despesasDatas = [{% for despesa in despesas_por_mes %}"{{ despesa.mes|date:'Y-m' }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+    var despesasValores = [{% for despesa in despesas_por_mes %}{{ despesa.total|stringformat:"f" }}{% if not forloop.last %},{% endif %}{% endfor %}];
+
+    var colors = [
+      'rgba(255, 99, 132, 0.6)', 
+      'rgba(54, 162, 235, 0.6)', 
+      'rgba(255, 206, 86, 0.6)', 
+      'rgba(75, 192, 192, 0.6)', 
+      'rgba(153, 102, 255, 0.6)', 
+      'rgba(255, 159, 64, 0.6)',
+    ];
+
+    var ctxDespesa = document.getElementById("chart-despesa").getContext("2d");
+    new Chart(ctxDespesa, {
+      type: "bar",
+      data: {
+        labels: despesasDatas,
+        datasets: [{
+          label: "Despesas (R$)",
+          data: despesasValores,
+          backgroundColor: colors,
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            grid: {
+              color: 'rgba(0, 0, 0, .1)',
+              borderDash: [5, 5],
+            },
+            ticks: {
+              color: '#333',
+              padding: 10,
+              callback: function(value) {
+                return 'R$ ' + value.toFixed(2); 
+              }
+            }
+          },
+          x: {
+            grid: {
+              color: 'rgba(0, 0, 0, .1)',
+              borderDash: [5, 5],
+            },
+            ticks: {
+              color: '#333',
+              padding: 10,
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false,
+          }
+        }
+      }
+    });
+  </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Produto');
+    data.addColumn('number', 'Total de Vendas');
+    data.addRows([
+      {% for venda in vendas_por_produto %}
+        ['{{ venda.produto }}', {{ venda.total_venda }}]{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ]);
+
+    var options = {
+      title: 'Total de Vendas por Produto',
+      hAxis: {
+        title: ''
+      },
+      vAxis: {
+        title: ''
+      },
+      bars: 'horizontal', 
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+    chart.draw(data, options);
+  }
+</script>
+
+{% endblock %}

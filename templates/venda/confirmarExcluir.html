@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-header bg-danger text-white text-center">
+            <h3>Tem certeza que deseja excluir?</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              <strong>Venda:</strong> {{ venda.produto }}
+            </p>
+            <p>
+              <strong>Data:</strong> {{ venda.data }}
+            </p>
+            <p>
+              <strong>Valor Total:</strong> {{ venda.valorTotal }}
+            </p>
+            <p>
+              <strong>Quantidade Produto:</strong> {{ venda.quantidadeProduto }}
+            </p>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <a href="/venda/deletar/{{ venda.id }}" class="btn btn-danger">Sim</a>
+              <a href="/venda/" class="btn btn-secondary">Não</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

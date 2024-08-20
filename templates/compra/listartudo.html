@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row m-0">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header ml-0">
+            <i class="fas fa-table me-1"></i>
+            Compras
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <td>Nome</td>
+                    <td>Valor por Unidade</td>
+                    <td>Valor Total</td>
+                    <td>Data</td>
+                    <td>Fornecedor</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if compra %}
+                    {% for compras in compra %}
+                      <tr>
+                        <td>{{ compras.nome }}</td>
+                        <td>{{ compras.valorUnidade }}</td>
+                        <td>{{ compras.valorTotal }}</td>
+                        <td>{{ compras.data }}</td>
+                        <td>{{ compras.fornecedor }}</td>
+                        <td class="text-center">
+                          <a href="{% url 'atualizarCompra' compras.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>
+                          <a href="{% url 'notaFiscalCompra' compras.id %}" class="btn btn btn-info btn-sm mr-1">Nota Fiscal</a>
+                          <a href="{% url 'confirmarCompra' compras.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card-footer bg-white">
+            <div class="d-flex justify-content-between p-2">
+              <a href="{% url 'home' %}" class="btn btn-link btn-custom-size">Voltar</a>
+              <a href="{% url 'criarCompra' %}" class="btn btn-success btn-custom-size">Criar Compra</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

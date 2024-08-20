@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{% url 'atualizarProduto' id_produto %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <input type="submit" value="Enviar" class="btn btn-primary">
+    <a href="{% url 'listarProduto' %}">Cancelar</a>
+</form>
+{% endblock %}

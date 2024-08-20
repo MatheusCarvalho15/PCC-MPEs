@@ -1,0 +1,152 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MPEs - Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href= "{% static "vendor/fontawesome-free/css/all.min.css"%}" rel="stylesheet"  type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static  "css/sb-admin-2.min.css"%}" rel="stylesheet">
+    <style>
+
+        
+        .container{
+            margin-top: 30px;
+        }
+        .bg-login-image{
+            background-image: url('/static/img/money.avif');
+            background-size: cover; /* Ajusta a imagem para cobrir todo o elemento */
+    background-position: center; /* Centraliza a imagem no elemento */
+    /* Outras propriedades de estilo, se necessário */
+        }
+        .row {  
+            min-height: 400px; /* Ou a altura desejada em pixels */
+  
+        }
+        .p-5{
+            margin-top: 30px;
+        }
+      
+        .text-center{
+            margin-bottom: 50px;
+        }
+    
+        .form-group input{
+            height: 45px;
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            outline: none;
+            margin-bottom: 20px;
+            color: #40414a; 
+        }
+
+        .form-group label {
+            display: none; /* Ocultar os rótulos */
+        }
+      input[type="submit"] {
+        border: none;
+        outline: none;
+        height: 45px;
+        background: #ececec;
+        border-radius: 5px;
+        transition: .4s;
+        width: 350px;
+        margin-bottom: 20px;
+
+     }
+    input[type="submit"]:hover {
+        background: rgba(37, 95, 156, 0.937);
+        color: #fff;
+     }
+
+     p{
+        font-size: 14px;
+     }
+        
+    </style>
+</head>
+
+<body class="bg-gradient-light">
+
+    <div class="container"> 
+
+        <!-- Outer Row -->  
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Bem-vindo</h1>
+                                    </div>
+                                    <form method='POST' action="">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="id_username">Username</label>
+                                            <input type="text" id="id_username" name="username"  placeholder="Insira o seu nome de usuário...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_password">Password</label>
+                                            <input type="password" id="id_password" name="password"  placeholder="Insira a sua senha...">
+                                        </div>
+                                        <center><input type="submit" value='Login' class="login-btn"></center>
+                                        <div class="text-center">
+                                            <a class="esqueci small" href="forgot-password.html">Esqueci a senha</a>
+                                        </div>
+                                    </form>
+                                       
+                                    <hr>
+                                    <div class="text-center">
+                                        <p style="display: inline;">Você ainda não possui uma conta?</p>
+                                        <a class="small" href="{% url 'register' %}" style="display: inline;">Criar nova conta</a>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+<script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{% static "js/sb-admin-2.min.js" %}"></script>
+
+</body>
+
+</html>
+
+

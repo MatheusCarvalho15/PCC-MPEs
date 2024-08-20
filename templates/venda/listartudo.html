@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row m-0">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header ml-0">
+            <i class="fas fa-table me-1"></i>
+            Vendas
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <td>Produto</td>
+                    <td>Data</td>
+                    <td>Valor Total</td>
+                    <td>Quantidade Produto</td>
+                    <td>Lucro / Prejuizo</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if venda %}
+                    {% for vendas in venda %}
+                      <tr>
+                        <td>{{ vendas.produto }}</td>
+                        <td>{{ vendas.data }}</td>
+                        <td>{{ vendas.valorTotal }}</td>
+                        <td>{{ vendas.quantidadeProduto }}</td>
+                        <td>{{ vendas.lucro|floatformat:2 }}</td>
+                        <td class="text-center">
+                          <!-- Centraliza os botões de ação -->
+                          <a href="{% url 'atualizarVenda' vendas.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>
+                          <a href="{% url 'notaFiscalVenda' vendas.id %}" class="btn btn btn-info btn-sm mr-1">Nota Fiscal</a>
+                          <a href="{% url 'confirmarVenda' vendas.id %}" class="btn btn-danger btn-sm">Deletar</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card-footer bg-white">
+            <div class="d-flex justify-content-between p-2">
+              <a href="{% url 'home' %}" class="btn btn-link btn-custom-size">Voltar</a>
+              <a href="{% url 'criarVenda' %}" class="btn btn-success btn-custom-size">Criar Venda</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

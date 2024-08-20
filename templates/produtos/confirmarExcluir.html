@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-header bg-danger text-white text-center">
+            <h3>Tem certeza que deseja excluir?</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              <strong>Produto:</strong> {{ produto.nome }}
+            </p>
+            <p>
+              <strong>UnMed:</strong> {{ produto.UnMed }}
+            </p>
+            <p>
+              <strong>CodBarra:</strong> {{ produto.CodBarra }}
+            </p>
+            <p>
+              <strong>ValorVenda:</strong> {{ produto.ValorVenda }}
+            </p>
+            <p>
+              <strong>ValorCompra:</strong> {{ produto.ValorCompra }}
+            </p>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <a href="/produtos/deletar/{{ produto.id }}" class="btn btn-danger">Sim</a>
+              <a href="/produtos/" class="btn btn-secondary">Não</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
