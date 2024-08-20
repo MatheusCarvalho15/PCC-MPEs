@@ -8,5 +8,4 @@ urlpatterns = [
     path("editar/<int:id_meta>", views.editar, name="atualizarMeta"),
     path("deletar/<int:id_meta>", views.deletar, name="confirmarMeta"),
     path("deletar/confirmar/<int:id_meta>", views.confirmarExcluir, name="confirmarMeta"),
-    path("detail/<int:id_meta>", views.detail, name="detailMeta"),
 ]

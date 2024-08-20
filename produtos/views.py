@@ -4,8 +4,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import Produto
 from .forms import ProdutoForm
 from django.shortcuts import redirect
+from MPEs.utils import group_required
 
 
+
+@group_required('caixa, administrador')
 @login_required
 def criarProduto(request):
     if request.method == 'POST':
@@ -37,6 +40,8 @@ def criarProduto(request):
 
     return render(request, 'produtos/formProdutos.html', {'form': form})
 
+
+@group_required('caixa, administrador')
 @login_required
 def editar(request, id_produto):
     produto = get_object_or_404(Produto, pk=id_produto)
@@ -51,6 +56,8 @@ def editar(request, id_produto):
     
     return render(request, "produtos/updateProdutos.html", {'form': form, 'id_produto': id_produto})
 
+
+@group_required('caixa, administrador')
 @login_required
 def listarProduto(request):
     user = request.user.username
@@ -58,6 +65,8 @@ def listarProduto(request):
     
     return render(request, "produtos/listarProduto.html", {'produto': produto, 'user': user})
 
+
+@group_required('caixa, administrador')
 @login_required
 def deletar(request, id_produto):
     produto = get_object_or_404(Produto, pk=id_produto)
@@ -65,6 +74,8 @@ def deletar(request, id_produto):
     
     return HttpResponseRedirect('/produtos/?msg=Excluido')
 
+
+@group_required('caixa, administrador')
 @login_required
 def confirmarExcluir(request, id_produto):
     produto = get_object_or_404(Produto, pk=id_produto)

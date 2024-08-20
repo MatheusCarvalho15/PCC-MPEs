@@ -8,6 +8,7 @@ from .forms import MetaForm
 from MPEs.utils import create_groups
 
 
+@group_required('administrador')
 @login_required
 def create(request):
     if request.method == 'POST':
@@ -22,7 +23,7 @@ def create(request):
 
     return render(request, "MetaLucro/formMeta.html", {'form': form})
 
-
+@group_required('administrador')
 @login_required
 def editar(request, id_meta):
     meta = Meta.objects.get(pk=id_meta)
@@ -38,6 +39,7 @@ def editar(request, id_meta):
 
     return render(request, "MetaLucro/updatemeta.html", {'form': form, 'id_meta': id_meta})
 
+
 @login_required
 def listartudo(request):
     create_groups()
@@ -46,26 +48,20 @@ def listartudo(request):
 
     return render(request, "MetaLucro/listartudo.html", {'meta': meta, 'user':user })
 
+@group_required('administrador')
 @login_required
 def deletar(request,id_meta):
     meta = Meta.objects.get(pk=id_meta).delete()
 
     return HttpResponseRedirect('/meta/?msg=Excluido')
 
+@group_required('administrador')
 @login_required
 def confirmarExcluir(request,id_meta):
     meta = Meta.objects.get(pk=id_meta)
 
     return render(request, "MetaLucro/confirmarExcluir.html", {'meta': meta})
 
-@login_required
-def detail(request, id_meta):
 
-    try:
-        saida =  Meta.objects.get(pk=id_meta)
-    except:
-        saida = "Sem nenhum gasto salvo"
-
-    return render(request, "MetaLucro/index.html", {'meta': saida})
 
     

@@ -14,7 +14,7 @@ from reportlab.lib import colors
 from produtos.models import Produto
 
 
-@group_required('vendedor')
+@group_required('vendedor, administrador')
 def create(request):
     if request.method == 'POST':
         form = VendaForm(request.POST)
@@ -28,7 +28,7 @@ def create(request):
 
     return render(request, "venda/formVenda.html", {'form': form, 'produto': produto})
 
-@group_required('vendedor')
+@group_required('vendedor, administrador')
 @login_required
 def editar(request, id_venda):
     venda = Venda.objects.get(pk=id_venda)
@@ -62,14 +62,14 @@ def deletar(request,id_venda):
 
     return HttpResponseRedirect('/venda/?msg=Excluido')
 
-@group_required('vendedor')
+@group_required('vendedor, administrador')
 @login_required
 def confirmarExcluir(request,id_venda):
     venda = Venda.objects.get(pk=id_venda)
 
     return render(request, "venda/confirmarExcluir.html", {'venda': venda})
 
-@group_required('vendedor')
+@group_required('vendedor, administrador')
 @login_required
 def detail(request, id_venda):
 
@@ -81,7 +81,7 @@ def detail(request, id_venda):
     return render(request, "venda/index.html", {'venda': saida})
 
 @login_required
-@group_required('vendedor')
+@group_required('vendedor, administrador')
 def gerar_nota_fiscalVenda(request, id_venda):
     venda = Venda.objects.get(pk=id_venda)
 

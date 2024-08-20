@@ -13,7 +13,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 from reportlab.lib import colors
 
 
-@group_required('vendedor')
+@group_required('caixa')
 @login_required
 def create(request):
     if request.method == 'POST':
@@ -50,7 +50,7 @@ def create(request):
     return render(request, "compra/formCompra.html", {'form': form})
 
 
-@group_required('vendedor')
+@group_required('caixa')
 @login_required
 def editar(request, id_compra):
     compra = Compra.objects.get(pk=id_compra)
@@ -66,7 +66,7 @@ def editar(request, id_compra):
     return render(request, "compra/updateCompra.html", {'form': form, 'id_compra': id_compra})
 
 
-@group_required('vendedor')
+@group_required('vendedor,caixa')
 @login_required
 def listartudo(request):
     create_groups()
@@ -76,32 +76,22 @@ def listartudo(request):
     return render(request, "compra/listartudo.html", {'compra': compras, 'user': user})
 
 
-@group_required('vendedor')
+@group_required('caixa')
 @login_required
 def deletar(request, id_compra):
     Compra.objects.get(pk=id_compra).delete()
     return HttpResponseRedirect('/compra/?msg=Excluido')
 
 
-@group_required('vendedor')
+@group_required('caixa')
 @login_required
 def confirmarExcluir(request, id_compra):
     compra = Compra.objects.get(pk=id_compra)
     return render(request, "compra/confirmarExcluir.html", {'compra': compra})
 
 
-@group_required('vendedor')
-@login_required
-def detail(request, id_compra):
-    try:
-        compra = Compra.objects.get(pk=id_compra)
-    except Compra.DoesNotExist:
-        compra = "Sem nenhum gasto salvo"
 
-    return render(request, "compra/index.html", {'compra': compra})
-
-
-@group_required('vendedor')
+@group_required('caixa')
 @login_required
 def gerar_nota_fiscalCompra(request, id_compra):
     compra = Compra.objects.get(pk=id_compra)

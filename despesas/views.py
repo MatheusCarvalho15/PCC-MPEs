@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Despesa
-from MPEs.utils import create_groups
+from MPEs.utils import create_groups, group_required
 from django.shortcuts import render
 from .forms import DespesasForm
 
 
 
-
+@group_required('caixa')
 @login_required
 def create(request):
     if request.method == 'POST':
@@ -20,6 +20,7 @@ def create(request):
 
     return render(request, "despesas/formDespesas.html", {'form': form})
 
+@group_required('caixa')
 @login_required
 def editar(request, id_despesa):
 
@@ -35,6 +36,7 @@ def editar(request, id_despesa):
 
     return render(request, "despesas/updateDespesas.html", {'form': form, 'id_despesa': id_despesa})
 
+@group_required('caixa, vendedor')
 @login_required
 def listartudo(request):
     create_groups()
@@ -43,27 +45,21 @@ def listartudo(request):
 
     return render(request, "despesas/listartudo.html", {'despesa': despesa, 'user':user })
 
+@group_required('caixa')
 @login_required
 def deletar(request,id_despesa):
     despesa = Despesa.objects.get(pk=id_despesa).delete()
 
     return HttpResponseRedirect('/despesas/?msg=Excluido')
 
+@group_required('caixa')
 @login_required
 def confirmarExcluir(request,id_despesa):
     despesa =Despesa.objects.get(pk=id_despesa)
 
     return render(request, "despesas/confirmarExcluir.html", {'despesa': despesa})
 
-@login_required
-def detail(request, id_despesa):
 
-    try:
-        saida =  Despesa.objects.get(pk=id_despesa)
-    except:
-        saida = "Sem nenhum gasto salvo"
-
-    return render(request, "despesa/index.html", {'Gasto': saida})
 
     
 
