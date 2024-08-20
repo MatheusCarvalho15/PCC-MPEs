@@ -5,10 +5,12 @@ from accounts.models import Usuario
 
 
 def group_required(groups, login_url=None, raise_exception=False):
-    user = Usuario
-
     def check_perms(user):
+
         if user.is_superuser:
+            return True
+        
+        if user.groups.filter(name='administrador').exists():
             return True
 
         if isinstance(groups, list):
