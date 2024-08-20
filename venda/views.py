@@ -44,7 +44,7 @@ def editar(request, id_venda):
     
     produto = Produto.objects.all
 
-    return render(request, "venda/updateVenda.html", {'form': form, 'id_venda': id_venda, 'produtos': produto})
+    return render(request, "venda/updateVenda.html", {'form': form, 'id_venda': id_venda, 'produto': produto})
 
 @group_required('vendedor')
 @login_required
@@ -101,7 +101,7 @@ def gerar_nota_fiscalVenda(request, id_venda):
     elements.append(Spacer(1, 12))
     
     data = [
-        ["Descrição", "Detalhe"],
+        ["Descrição", "Valor"],
         ["Produto", venda.produto.nome],
         ["Quantidade", str(venda.quantidadeProduto)],
         ["Valor Unitário", f"R$ {venda.valorTotal / venda.quantidadeProduto:.2f}"],

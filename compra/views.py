@@ -122,7 +122,7 @@ def gerar_nota_fiscalCompra(request, id_compra):
     elements.append(Spacer(1, 12))
     
     data = [
-        ["Descrição", "Detalhe"],
+        ["Descrição", "valor"],
         ["Produto", compra.nome],
         ["Quantidade", str(compra.quantidade)],
         ["Valor Unitário", f"R$ {compra.valorUnidade:.2f}"],
