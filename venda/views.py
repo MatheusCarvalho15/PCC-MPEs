@@ -11,7 +11,7 @@ from reportlab.lib.units import inch
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib import colors
-from .models import Venda
+from produtos.models import Produto
 
 
 @group_required('vendedor')
@@ -24,7 +24,9 @@ def create(request):
     else:
         form = VendaForm()
 
-    return render(request, "venda/formVenda.html", {'form': form})
+    produto = Produto.objects.all
+
+    return render(request, "venda/formVenda.html", {'form': form, 'produto': produto})
 
 @group_required('vendedor')
 @login_required
@@ -39,8 +41,10 @@ def editar(request, id_venda):
             return HttpResponseRedirect('/venda/?msg=Salvo')
     else:
         form = VendaForm(instance=venda)
+    
+    produto = Produto.objects.all
 
-    return render(request, "venda/updateVenda.html", {'form': form, 'id_venda': id_venda})
+    return render(request, "venda/updateVenda.html", {'form': form, 'id_venda': id_venda, 'produtos': produto})
 
 @group_required('vendedor')
 @login_required

@@ -11,7 +11,26 @@ def criarProduto(request):
     if request.method == 'POST':
         form = ProdutoForm(request.POST)
         if form.is_valid():
-            form.save()
+            produto = form.save()
+
+            # Verifica se o produto já existe
+            produto_existente = Produto.objects.filter(
+                nome=produto.nome,
+                valorCompra=produto.valorCompra
+            ).first()
+
+            if produto_existente:
+                # Atualiza a quantidade do produto existente
+                produto_existente.quantidade += produto.quantidade
+                produto_existente.save()
+            else:
+                # Cria um novo produto
+                Produto.objects.create(
+                    nome=produto.nome,
+                    valorCompra=produto.valorCompra,
+                    quantidade=produto.quantidade
+                )
+
             return redirect('listarProduto')
     else:
         form = ProdutoForm()

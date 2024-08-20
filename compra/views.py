@@ -24,7 +24,8 @@ def create(request):
             Despesa.objects.create(
                 nome=compra.nome,
                 data=compra.data,
-                valor=compra.valorTotal
+                valor=compra.valorTotal,
+                natureza='produto'
             )
 
             produto_existente = Produto.objects.filter(

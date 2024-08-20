@@ -22,4 +22,50 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="row m-0">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header ml-0">
+            <i class="fas fa-table me-1"></i>
+            Produtos
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Unidade de Medida</th>
+                    <th>Código de Barras</th>
+                    <th>Valor Venda</th>
+                    <th>Valor Compra</th>
+                    <th>Quantidade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if produto %}
+                    {% for produtos in produto %}
+                      <tr>
+                        <td>{{ produtos.nome }}</td>
+                        <td>{{ produtos.unidadeMedida }}</td>
+                        <td>{{ produtos.codDeBarra }}</td>
+                        <td>R${{ produtos.valorVenda }}</td>
+                        <td>R${{ produtos.valorCompra }}</td>
+                        <td>{{ produtos.quantidade }}</td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card-footer bg-white">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -4,9 +4,9 @@ from django.db import models
 class Despesa(models.Model):
     
     ESCOLHAS_NATUREZA = [
-        ('vendedor', 'Vendedor'),
-        ('caixa', 'Caixa'),
-        ('administrador','Administrador')
+        ('imposto', 'imposto'),
+        ('produto', 'produto'),
+        ('funcionario','funcionario')
     ]
 
     nome = models.CharField(max_length=255)  # Especificando o tipo de campo e tamanho máximo
