@@ -13,6 +13,7 @@
             <form action="{% url 'criar' %}" method="post">
               {% csrf_token %}
               {{ form|crispy }}
+              
               <div class="d-flex justify-content-between mt-4">
                 <input type="submit" value="Enviar" class="btn btn-primary" />
                 <a href="{% url 'listar' %}" class="btn btn-secondary">Cancelar</a>
