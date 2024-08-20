@@ -7,7 +7,7 @@
         <div class="card">
           <div class="card-header ml-0">
             <i class="fas fa-receipt"></i>
-            Vendas
+           <strong>Vendas</strong> 
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -17,8 +17,8 @@
                     <td>Produto</td>
                     <td>Data</td>
                     <td>Valor Total</td>
-                    <td>Quantidade Produto</td>
-                    <td>Lucro / Prejuizo</td>
+                    <td>Quantidade</td>
+                    <td>Lucro / Prejuízo</td>
                   </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@
                         <td>{{ vendas.quantidadeProduto }}</td>
                         <td>{{ vendas.lucro|floatformat:2 }}</td>
                         <td class="text-center">
-                          <!-- Centraliza os botões de ação -->
+          
                           <a href="{% url 'atualizarVenda' vendas.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>
                           <a href="{% url 'notaFiscalVenda' vendas.id %}" class="btn btn btn-info btn-sm mr-1">Nota Fiscal</a>
                           <a href="{% url 'confirmarVenda' vendas.id %}" class="btn btn-danger btn-sm">Deletar</a>
