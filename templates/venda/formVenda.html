@@ -25,23 +25,37 @@
 
   <div class="container mt-4">
     <div class="row justify-content-center">
-      <div class="col-md-12">
+      <div class="col-md-10">
+        <!-- reduzi a largura da tabela -->
         <div class="card">
           <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Produtos
+            <strong>Produtos</strong> <!-- negrito no título da tabela -->
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                <!-- adiciona classe table-sm para reduzir a tamanho da tabela -->
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Unidade de Medida</th>
-                    <th>Código de Barras</th>
-                    <th>Valor Venda</th>
-                    <th>Valor Compra</th>
-                    <th>Quantidade do produto</th>
+                    <th>
+                      <strong>Nome</strong>
+                    </th> <!-- negrito nos títulos das colunas -->
+                    <th>
+                      <strong>Unidade de Medida</strong>
+                    </th>
+                    <th>
+                      <strong>Código de Barras</strong>
+                    </th>
+                    <th>
+                      <strong>Valor Venda</strong>
+                    </th>
+                    <th>
+                      <strong>Valor Compra</strong>
+                    </th>
+                    <th>
+                      <strong>Quantidade do produto</strong>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,8 +76,7 @@
             </div>
           </div>
 
-          <div class="card-footer bg-white">
-          </div>
+          <div class="card-footer bg-white"></div>
         </div>
       </div>
     </div>
