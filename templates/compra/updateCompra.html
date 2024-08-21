@@ -13,12 +13,14 @@
             <form action="{% url 'atualizarCompra' id_compra %}" method="post">
               {% csrf_token %}
               {{ form|crispy }}
+              <br />
               <div class="d-flex justify-content-between mt-4">
                 <input type="submit" value="Enviar" class="btn btn-primary" />
                 <a href="{% url 'listarCompra' %}" class="btn btn-secondary">Cancelar</a>
               </div>
             </form>
           </div>
+          <br />
         </div>
       </div>
     </div>
